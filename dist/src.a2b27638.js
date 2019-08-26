@@ -30716,7 +30716,64 @@ function _inherits(subClass, superClass) {
 }
 
 module.exports = _inherits;
-},{"./setPrototypeOf":"node_modules/@babel/runtime/helpers/setPrototypeOf.js"}],"node_modules/mathjs/es/core/config.js":[function(require,module,exports) {
+},{"./setPrototypeOf":"node_modules/@babel/runtime/helpers/setPrototypeOf.js"}],"src/Components/ClearButton.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ClearButton = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ClearButton = function ClearButton() {
+  return _react.default.createElement("div", {
+    className: "clear-btn"
+  }, _react.default.createElement("button", null, "Clear"));
+};
+
+exports.ClearButton = ClearButton;
+},{"react":"node_modules/react/index.js"}],"src/Components/Output.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Output = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Output = function Output(props) {
+  return _react.default.createElement("div", {
+    className: "output"
+  }, " ", props.output);
+};
+
+exports.Output = Output;
+},{"react":"node_modules/react/index.js"}],"src/Components/GoButton.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.GoButton = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GoButton = function GoButton() {
+  return _react.default.createElement("div", {
+    className: "go-btn"
+  }, _react.default.createElement("button", null, "Go!"));
+};
+
+exports.GoButton = GoButton;
+},{"react":"node_modules/react/index.js"}],"node_modules/mathjs/es/core/config.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -115339,6 +115396,12 @@ var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _ClearButton = require("./Components/ClearButton");
+
+var _Output = require("./Components/Output");
+
+var _GoButton = require("./Components/GoButton");
+
 var math = _interopRequireWildcard(require("mathjs"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -115356,7 +115419,7 @@ function (_Component) {
     (0, _classCallCheck2.default)(this, App);
     _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(App).call(this, props));
     _this.state = {
-      input: '',
+      value: '',
       output: '' // binding prevents errors about setState
 
     };
@@ -115377,6 +115440,9 @@ function (_Component) {
     value: function handleSubmit(event) {
       console.log(this.state.value);
       event.preventDefault();
+      this.setState({
+        output: math.evaluate(this.state.value)
+      }); //alert(this.state.input)
     }
   }, {
     key: "render",
@@ -115387,7 +115453,11 @@ function (_Component) {
         type: "text",
         value: this.state.value,
         onChange: this.handleChange
-      })));
+      })), _react.default.createElement(_Output.Output, {
+        output: this.state.output
+      }), _react.default.createElement(_GoButton.GoButton, {
+        handleClick: this.handleSubmit
+      }), _react.default.createElement(_ClearButton.ClearButton, null));
     }
   }]);
   return App;
@@ -115395,7 +115465,7 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","mathjs":"node_modules/mathjs/main/esm/index.js"}],"src/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./Components/ClearButton":"src/Components/ClearButton.js","./Components/Output":"src/Components/Output.js","./Components/GoButton":"src/Components/GoButton.js","mathjs":"node_modules/mathjs/main/esm/index.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -115435,7 +115505,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45067" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33337" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,5 +1,7 @@
 import React, {Component} from "react";
-
+import {ClearButton} from "./Components/ClearButton"
+import {Output} from "./Components/Output"
+import {GoButton} from "./Components/GoButton"
 
 import * as math from 'mathjs'
 
@@ -7,7 +9,7 @@ class App extends Component{
   constructor(props){
     super(props)
     this.state = {
-      input: '',
+      value: '',
       output: ''
     }
     // binding prevents errors about setState
@@ -22,7 +24,12 @@ class App extends Component{
   handleSubmit(event) {
     console.log(this.state.value)
     event.preventDefault();
+
+    this.setState({ output: math.evaluate(this.state.value) })
+    //alert(this.state.input)
   }
+
+
 
   render(){
     return (
@@ -30,6 +37,9 @@ class App extends Component{
         <form onSubmit={this.handleSubmit}>
           <input type="text" value={this.state.value} onChange={this.handleChange}/>
         </form>
+        <Output output={this.state.output}/>
+        <GoButton handleClick={this.handleSubmit}/>
+        <ClearButton />
       </div>
     )
   }
