@@ -24,9 +24,13 @@ class App extends Component{
   handleSubmit(event) {
     console.log(this.state.value)
     event.preventDefault();
+    try {
+      this.setState({ output: math.evaluate(this.state.value).toString() }) // .toString() prevents bug of everything disappearing
+    } catch(e) {
+      this.setState({ output: err.message })
+    }
 
-    this.setState({ output: math.evaluate(this.state.value) })
-    //alert(this.state.input)
+
   }
 
 

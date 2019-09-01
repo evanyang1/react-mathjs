@@ -115440,9 +115440,16 @@ function (_Component) {
     value: function handleSubmit(event) {
       console.log(this.state.value);
       event.preventDefault();
-      this.setState({
-        output: math.evaluate(this.state.value)
-      }); //alert(this.state.input)
+
+      try {
+        this.setState({
+          output: math.evaluate(this.state.value).toString()
+        }); // .toString() prevents bug of everything disappearing
+      } catch (e) {
+        this.setState({
+          output: err.message
+        });
+      }
     }
   }, {
     key: "render",
@@ -115505,7 +115512,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33337" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34477" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
